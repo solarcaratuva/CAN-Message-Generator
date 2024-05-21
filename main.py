@@ -59,7 +59,7 @@ def main() -> None:
     with open(config_path, "r") as file:
         global config
         config = json.load(file)
-    num_messages = int(sys.argv[2])
+    num_messages = int(float(sys.argv[2]))
 
     setup_maps()
     templates_keys = list(config.keys())
