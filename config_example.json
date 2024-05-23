@@ -1,0 +1,16 @@
+{
+    "ECUMotorCommands": {
+        "throttle": "100 * math.sin(math.radians(i % 90))",
+        "regen": 1,
+        "cruise_control_speed": "rand.randint(0, 100)"
+    },
+    "ECUPowerAuxCommands": {
+        "hazards": 1
+    },
+    "BPSPackInformation": {
+        "pack_voltage": "min(200, (i % 100)**2)",
+        "pack_current": "100 * rand.random()",
+        "is_ready_signal_status": 1,
+        "is_charging_signal_status": 1
+    }
+}
