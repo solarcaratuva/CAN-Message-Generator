@@ -5,6 +5,8 @@ import math
 import os
 import sys
 
+TIMESTAMP_RATE = 1.1
+
 dbc_files = os.listdir("./CAN-messages")
 dbs = [ct.db.load_file(f"./CAN-messages/{file}") for file in dbc_files if file.endswith(".dbc")]
 
@@ -27,7 +29,7 @@ def setup_maps() -> None:
             exit(1)
 
 
-def generate_message(message_type: str, data: dict) -> str:
+def generate_message(message_type: str, data: dict, time: int) -> str:
     db = file_map[message_type]
     message = message_map[message_type]
 
@@ -40,11 +42,14 @@ def generate_message(message_type: str, data: dict) -> str:
         print(f"Error encoding message: {e}")
         exit(1)
     encoded_message_hex = encoded_message_bytes.hex()
-    while len(encoded_message_hex) < message.length * 2:
-        encoded_message_hex = "0" + encoded_message_hex
-    id_hex = hex(message.frame_id)[2:]
+    encoded_message_hex = (message.length * 2 - len(encoded_message_hex)) * "0" + encoded_message_hex
 
-    text = f"00:00:00 DEBUG /root/Rivanna2/Common/src/MainCANInterface.cpp:40: Sent CAN message with ID 0x{id_hex} Length {message.length} Data 0x{encoded_message_hex}"
+    id_hex = hex(message.frame_id)[2:]
+    sec = str(time % 60).zfill(2)
+    min = str(time // 60 % 60).zfill(2)
+    hour = str(time // 3600).zfill(2)
+
+    text = f"{hour}:{min}:{sec} DEBUG /root/Rivanna2/Common/src/MainCANInterface.cpp:40: Sent CAN message with ID 0x{id_hex} Length {message.length} Data 0x{encoded_message_hex}"
     return text
 
 
@@ -65,6 +70,7 @@ def main() -> None:
     templates_keys = list(config.keys())
     
     with open("out.txt", "w") as file:
+        time = 0
         for i in range(num_messages):
             messageType = rand.choice(templates_keys)
             template = config[messageType]
@@ -73,9 +79,10 @@ def main() -> None:
             except Exception as e:
                 print(f"Error when evaluating a statement in {config_path} for {messageType}: \n{e}")
                 exit(1)
-            text = generate_message(messageType, messageData)
+            text = generate_message(messageType, messageData, time)
             file.write(text+"\n")
+            time += int(rand.random() * TIMESTAMP_RATE)
 
-# TODO implement timestamps
+
 if __name__ == '__main__':
     main()
