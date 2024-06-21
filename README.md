@@ -3,7 +3,8 @@
 ## Description
 This program was made by and for the Solar Car Team at UVA. This program generates simulated CAN Messages. 
 
-## Installation
+## Installation 
+
 1. Clone this repo onto your machine
 2. `cd` into the project folder
 3. Create a python virtual environment (`py -m venv .venv`) and activate it (`.\.venv\Scripts\activate`)
@@ -12,6 +13,7 @@ This program was made by and for the Solar Car Team at UVA. This program generat
 4. Install cantools (`pip install cantools`)
 
 ## Use
+
 **Setting up the Config file**
 A JSON file must be created. It contains a dictionary (outer dictionary) of dictionaries (inner dictionaries). The keys to the outer dictionary are CAN message names (like `ECUMotorCommands`); its value is an inner dictionary. The inner dictionary contains key-value pairs for signals of the CAN message and their value (like `"throttle": 25`). Signals left undefined will be assumed to be 0.
 
