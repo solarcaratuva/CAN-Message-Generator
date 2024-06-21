@@ -15,6 +15,7 @@ This program was made by and for the Solar Car Team at UVA. This program generat
 ## Use
 
 **Setting up the Config file**
+
 A JSON file must be created. It contains a dictionary (outer dictionary) of dictionaries (inner dictionaries). The keys to the outer dictionary are CAN message names (like `ECUMotorCommands`); its value is an inner dictionary. The inner dictionary contains key-value pairs for signals of the CAN message and their value (like `"throttle": 25`). Signals left undefined will be assumed to be 0.
 
 The value of a signal will be re-evaluated for every message generated. The value can be dynamically set by using a python expression in a string for a signal's value; the expression can contain these elements:
@@ -25,7 +26,9 @@ The value of a signal will be re-evaluated for every message generated. The valu
 See `config_example.json` for an example. 
 
 
+
 **Running the Program**
+
 After completing the steps in *Installation*, run `py main.py path number`
 - replace `path` with the path of the Config JSON file
 - replace `number` with the number of messages to be created; can use scientific notation (like `1e3`)
