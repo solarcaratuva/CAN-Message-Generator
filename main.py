@@ -25,7 +25,7 @@ def setup_maps() -> None:
                     handled = True
                     break
         if not handled:
-            print(f"ERROR:Message type \"{template}\" not found in any DBC file.")
+            print(f"ERROR: Message type \"{template}\" not found in any DBC file.")
             exit(1)
 
 
