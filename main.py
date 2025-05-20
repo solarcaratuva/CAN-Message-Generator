@@ -4,6 +4,7 @@ import random as rand
 import math
 import os
 import sys
+from tqdm import trange
 
 TIMESTAMP_RATE = 1.1
 
@@ -71,7 +72,7 @@ def main() -> None:
     
     with open("out.txt", "w") as file:
         time = 0
-        for i in range(num_messages):
+        for i in trange(num_messages, leave=False, desc="Generating messages", unit="message"):
             messageType = rand.choice(templates_keys)
             template = config[messageType]
             try:
@@ -82,6 +83,8 @@ def main() -> None:
             text = generate_message(messageType, messageData, time)
             file.write(text+"\n")
             time += int(rand.random() * TIMESTAMP_RATE)
+
+    print("Done!")
 
 
 if __name__ == '__main__':

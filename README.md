@@ -10,7 +10,7 @@ This program was made by and for the Solar Car Team at UVA. This program generat
 3. Create a python virtual environment (`py -m venv .venv`) and activate it (`.\.venv\Scripts\activate`)
     - you may need to use `python` or `python3` instead of `py`
     - on Mac, run `source ./.venv/bin/activate` to activate the virtual environment
-4. Install cantools (`pip install cantools`)
+4. Install dependencies (`pip install -r requirements.txt`)
 5. Add the CAN Messages submodule by running `git submodule update --init --recursive`
 
 ## Use
